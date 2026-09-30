@@ -1,0 +1,568 @@
+
+WebWin.
+IMPORTANT
+Build a polished, functional product — not a bare demo.
+Keep the implementation token-efficient and avoid unnecessary complexity.
+Use clean, modular architecture because the project will later be continued using Claude Code or other AI coding tools.
+Do not over-engineer V1.
+Do not implement future features yet.
+Before coding, briefly inspect the existing project structure and reuse existing setup where appropriate.
+Do not spend tokens explaining the implementation. Spend effort building the application.
+
+PRODUCT PURPOSE
+WebWin helps a company's sales team discover businesses that may be potential customers for website development.
+The V1 workflow is:
+Location + Business Category → Google Places → Filter businesses without a listed website → MongoDB → Display leads
+The important business rule is:
+If Google Places does not provide a websiteUri for a business, treat it as a potential lead.
+This does NOT prove that the business has no website. It only means that Google Places did not provide/list a website.
+
+V1 SCOPE — ONLY BUILD THIS
+User logs in.
+User enters a location.
+User enters a business category.
+Backend searches Google Places API.
+Backend receives matching businesses.
+Businesses with a listed website are ignored.
+Businesses without a listed website are normalized and saved to MongoDB.
+Duplicate businesses are prevented using Google Place ID.
+Saved leads are fetched from MongoDB and displayed in the dashboard.
+Search statistics are shown after each search.
+DO NOT BUILD IN V1
+Do NOT implement:
+Website generation
+Website templates
+Demo website builder
+AI website generation
+Email automation
+Calling automation
+CRM
+Lead scoring
+AI scoring
+Sales pipeline
+Outreach automation
+Payment system
+Advanced analytics
+Complex role permissions
+Real-time collaboration
+The architecture should make these features easy to add later, but they must NOT be implemented now.
+
+TECH STACK
+Frontend
+React
+Modern component-based architecture
+React Router if routing is required
+Backend
+Node.js
+Express
+Database
+MongoDB
+Mongoose
+External API
+Google Places API (New)
+Configuration
+Environment variables for secrets and configuration
+Never expose the Google API key in frontend code.
+
+AUTHENTICATION
+Create a polished login page.
+V1 has only two roles:
+admin
+sales
+For V1, use simple credentials stored in backend environment variables.
+Example concept:
+ADMIN_EMAIL
+ADMIN_PASSWORD
+SALES_EMAIL
+SALES_PASSWORD
+Both roles can access the current V1 functionality.
+Keep authentication separated into:
+auth service
+auth middleware
+frontend auth state
+This allows real authentication to replace it later without rewriting the application.
+Do not build registration, password reset, OAuth, JWT infrastructure or complex permission systems unless required for the basic login flow.
+
+MAIN USER FLOW
+After successful login:
+Login → Dashboard → Search Businesses → Save Leads → View Leads
+The dashboard should make the main action immediately obvious:
+Find Businesses
+The user enters:
+Location
+Business Category
+Then clicks:
+Find Businesses
+
+LOCATION & CATEGORY INPUTS
+Both inputs must support searchable autocomplete.
+Do NOT use simple static dropdowns.
+Examples:
+Typing:
+den
+could show:
+Dentist
+Dental Clinic
+Dental Hospital
+Typing:
+ind
+could show:
+Indore
+Indore, Madhya Pradesh
+The user should also be able to freely type a value even if it is not selected from suggestions.
+Use a clean autocomplete UI with:
+smooth opening/closing
+highlighted active suggestion
+keyboard navigation
+clear selected state
+loading state when suggestions are being fetched
+Do not build a huge custom search engine.
+Keep the autocomplete implementation simple and maintainable.
+
+GOOGLE PLACES INTEGRATION
+Google Places API must only be called from the backend.
+Create a dedicated service such as:
+googlePlacesService
+It should handle Google Places communication and return normalized/raw business data to the application layer.
+Do not put Google API calls directly inside routes or React components.
+Request only the fields actually required for V1 to reduce unnecessary API usage/cost.
+Relevant business data may include:
+placeId
+name
+category/type
+address
+location
+phone
+rating
+review count
+websiteUri
+Google Maps/place URL
+Handle pagination if required by the Google Places API.
+
+LEAD FILTERING
+For every Google Places result:
+If websiteUri exists:
+Do NOT save the business.
+If websiteUri does not exist:
+Save it as a potential lead.
+Use:
+websiteStatus: "not_listed"
+Do NOT label it:
+"No Website"
+"Website Missing"
+"Website Doesn't Exist"
+because Google Places not providing a website does not prove that the business has no website.
+
+MONGODB
+MongoDB is the source of truth for saved leads.
+Do not create fake/static target-customer data in the frontend.
+The dashboard must fetch saved leads from MongoDB through the backend API.
+Lead Model
+Create a Lead model with approximately:
+placeId
+name
+category
+address
+location
+phone
+rating
+reviewCount
+website
+websiteStatus
+googleMapsUrl
+createdAt
+updatedAt
+Optional Google fields should be handled safely because some businesses may not provide all fields.
+
+SEARCH MODEL
+Create a Search model to store search history/statistics.
+Fields:
+location
+category
+searchedAt
+totalProcessed
+websiteListed
+newLeads
+duplicates
+This gives the application a clean foundation for future analytics without implementing analytics now.
+
+DEDUPLICATION
+Google Place ID is the primary unique identifier.
+Create a unique MongoDB index on placeId.
+Rules:
+Same placeId found in another search → skip it.
+Different placeId → treat it as a different business.
+Do NOT use placeId + name as the primary uniqueness rule.
+Different nearby businesses can have similar names, so Place ID must remain the primary identity.
+Handle duplicate insert attempts gracefully without crashing the search.
+
+SEARCH RESPONSE
+After a search, return useful statistics:
+Total businesses processed
+Businesses with website
+New leads saved
+Duplicates skipped
+Example:
+124 businesses found
+82 already have a listed website
+27 new leads saved
+15 duplicates skipped
+Use these statistics in the dashboard after the search completes.
+
+DASHBOARD
+Create a polished sales-oriented dashboard.
+The dashboard should contain:
+Header / Navigation
+WebWin branding
+Current user/role
+Logout
+Main Search Card
+Title:
+Find Businesses
+Fields:
+Location autocomplete
+Business category autocomplete
+Find Businesses button
+Search State
+Show a polished loading state while Google Places is being queried.
+Example:
+Finding businesses...
+Do not freeze the UI.
+Search Results Summary
+After completion, display:
+Total processed
+Website listed
+New leads
+Duplicates
+Saved Leads
+Below the search section, display leads fetched from MongoDB.
+The UI should clearly communicate that these are saved potential customers.
+Useful fields:
+Business name
+Category
+Address
+Phone
+Rating / reviews
+Website status
+Date added
+Do not create static/mock lead data.
+
+BACKEND ARCHITECTURE
+Use a clean layered structure:
+backend/
+  routes/
+  controllers/
+  services/
+  models/
+  middleware/
+  config/
+  utils/
+Request flow:
+Route
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Model / External API
+Responsibilities:
+Routes
+Define API endpoints only.
+Controllers
+Handle HTTP request/response logic.
+Services
+Contain business logic.
+At minimum isolate:
+Google Places service
+Lead service
+Search service
+Auth service
+Models
+Only handle database schemas/models.
+Database models must NOT call Google APIs.
+Middleware
+Handle authentication and reusable request concerns.
+Config
+Handle environment/configuration.
+Utils
+Only reusable helper functions.
+Do NOT create one giant Express file.
+Do NOT put all business logic in routes.
+
+FRONTEND ARCHITECTURE
+Use a modular structure such as:
+frontend/
+  pages/
+  components/
+  services/
+  hooks/
+  utils/
+Keep API communication inside a frontend API/service layer.
+Do NOT put fetch/API calls everywhere inside UI components.
+Do NOT create a giant App.jsx.
+Possible structure:
+pages/
+  Login
+  Dashboard
+
+components/
+  Navbar
+  SearchCard
+  AutocompleteInput
+  SearchStats
+  LeadTable
+  LoadingState
+
+services/
+  api
+  auth
+  leads
+Use sensible names and keep components focused.
+
+API DESIGN
+Keep endpoints simple and REST-like.
+For example:
+POST /api/auth/login
+
+POST /api/search
+
+GET /api/leads
+
+GET /api/searches
+The exact structure can be adjusted if the existing project already has conventions.
+POST /api/search should:
+Validate location/category.
+Call Google Places service.
+Normalize results.
+Filter businesses with no websiteUri.
+Check/deduplicate by placeId.
+Save new leads.
+Save search statistics.
+Return statistics and newly discovered leads.
+GET /api/leads should return saved leads from MongoDB.
+
+VALIDATION & ERROR HANDLING
+Handle gracefully:
+Empty location
+Empty category
+Google API errors
+Missing Google API key
+Google API rate limits
+Empty Google results
+MongoDB connection errors
+Duplicate records
+Missing optional business fields
+Invalid login credentials
+Network errors
+Show friendly user-facing messages.
+Never expose:
+API keys
+passwords
+database credentials
+backend stack traces
+internal error details
+
+UI DESIGN
+The design should feel like a modern premium B2B sales product.
+Avoid the typical:
+dark futuristic AI dashboard
+neon gradients
+excessive glassmorphism
+overly technical developer UI
+orange-heavy SaaS design
+pure white empty background
+The interface should feel:
+cool
+premium
+friendly
+clean
+spacious
+modern
+trustworthy
+sales-oriented
+easy to scan
+
+COLOR SYSTEM
+Do NOT use pure white as the main page background.
+Use this palette:
+Background:  #F1F0F8
+Primary:     #635BFF
+Deep:        #24204A
+Accent:      #A78BFA
+Cards:       #FFFFFF
+Text:        #27243A
+Muted:       #77738A
+Success:     #22A06B
+Borders:     #DDD9EA
+Usage
+#F1F0F8 → main page background
+#FFFFFF → cards, panels and input surfaces
+#635BFF → primary buttons, active states and important CTAs
+#24204A → headings and strong text
+#A78BFA → subtle accents/highlights
+#27243A → normal text
+#77738A → secondary/muted text
+#22A06B → success states
+#DDD9EA → borders/dividers
+Do not make the entire UI purple.
+Purple should primarily highlight actions and important states.
+
+VISUAL DETAILS
+Use:
+rounded but not excessively rounded cards
+subtle shadows
+clear spacing
+strong visual hierarchy
+clean typography
+polished tables
+readable empty states
+professional buttons
+subtle hover states
+The page should have enough visual character that it does not feel like a generic admin template.
+Avoid excessive gradients and decorative elements.
+
+ANIMATIONS
+Use restrained, polished micro-interactions.
+Include:
+subtle card entrance animation
+smooth button hover
+button press feedback
+autocomplete transitions
+subtle loading animation
+smooth page transitions where appropriate
+table/lead appearance animation
+Animations should be fast and professional.
+Do NOT create excessive animations that slow down the product or consume unnecessary implementation effort.
+
+LOGIN PAGE
+Create a premium WebWin login experience.
+The page should use the same visual system and should NOT have a plain white background.
+WebWin Brand Animation
+Before the login form appears, create a very short typography-based WebWin intro.
+No logo image is required.
+The animation should:
+Start with a small V-like typographic form.
+Quickly transform/mirror. Or create mirror image of v as w
+Pass through a mirrored W-like form. Like w|w
+Resolve smoothly into the word: add missing letter in between webwin
+WebWin
+Then reveal the login form.
+The whole animation should happen within a fraction of a second.
+Requirements:
+centered
+relatively small
+elegant
+smooth
+subtle
+premium
+It should feel like a small brand interaction, NOT a cinematic intro.
+After the animation, show:
+Email
+Password
+Login button
+Keep the login page minimal.
+
+RESPONSIVENESS
+The application should work properly on:
+desktop
+laptop
+tablet
+Prioritize desktop because this is a sales-team product, but do not allow the layout to break on smaller screens.
+
+CODE COMMENTS
+Above every major function, component, service, controller, or important feature, add ONE short Hinglish comment explaining its purpose.
+Example:
+// Google Places se businesses fetch karke required data return karta hai.
+Another example:
+// MongoDB me new leads save karta hai aur duplicate Place IDs ko skip karta hai.
+Rules:
+Comments should explain intent.
+Do NOT comment every line.
+Do NOT write obvious comments like // set state.
+Keep comments short and useful.
+Use Roman-script Hinglish only.
+
+CODE QUALITY
+Prioritize:
+meaningful variable/function names
+small focused components
+modular services
+reusable utilities
+validation
+error handling
+database indexes
+environment variables
+clean API boundaries
+no duplicated business logic
+no giant files
+no unnecessary dependencies
+The code should be easy for another developer or AI coding agent to understand and extend.
+
+FUTURE-READY ARCHITECTURE
+Do not implement these features now, but structure the application so they can later be added cleanly:
+Google Places
+      ↓
+    Leads
+      ↓
+Category Templates
+      ↓
+Personalized Demo Websites
+      ↓
+Sales Outreach
+      ↓
+Lead Pipeline
+      ↓
+Analytics
+Future additions may include:
+3 website templates per business category
+personalized demo generation
+sales outreach
+lead status
+pipeline management
+analytics
+real authentication
+additional roles
+Do not build any of these now.
+
+SECURITY
+Keep Google API credentials server-side.
+Use environment variables.
+Never commit secrets.
+Never return credentials to frontend.
+Validate backend input.
+Sanitize/validate database input where appropriate.
+Do not expose stack traces in production responses.
+
+ENVIRONMENT VARIABLES
+Use environment variables for at least:
+MONGODB_URI
+GOOGLE_PLACES_API_KEY
+ADMIN_EMAIL
+ADMIN_PASSWORD
+SALES_EMAIL
+SALES_PASSWORD
+If the project requires additional configuration, use environment variables instead of hardcoding secrets.
+Provide a .env.example file with placeholder values.
+Never include real secrets.
+
+FINAL IMPLEMENTATION REQUIREMENTS
+Before finishing:
+Verify the frontend builds.
+Verify the backend starts.
+Verify MongoDB connection handling.
+Verify login flow.
+Verify Google Places request flow.
+Verify website filtering.
+Verify Place ID deduplication.
+Verify leads are actually saved to MongoDB.
+Verify leads are loaded from MongoDB into the dashboard.
+Verify error states.
+Verify .env.example.
+Remove unnecessary mock/static lead data.
+The final result should be a working WebWin V1, not just UI screens.
+At completion, provide only:
+What was built
+Required environment variables
+How to run the project
+Google Places API setup required
+Do not implement anything outside the V1 scope.
