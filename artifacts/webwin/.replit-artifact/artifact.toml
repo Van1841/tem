@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "WebWin"
+description = "A sales lead discovery workspace that searches Google Places for businesses without a listed website, saves potential leads to MongoDB, and includes clear connection setup instructions."
+version = "1.0.0"
+id = "artifacts/webwin"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21408
+
+[services.development]
+run = "pnpm --filter @workspace/webwin run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/webwin", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/webwin/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21408"
+BASE_PATH = "/"

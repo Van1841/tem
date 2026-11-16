@@ -1,44 +1,56 @@
-# [Project name]
+# WebWin
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Sales teams use WebWin to discover businesses Google Places does not provide a listed website for, save potential leads to MongoDB, and review search results.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/api-server run dev` — run the API server on its configured `PORT`
+- `pnpm --filter @workspace/webwin run dev` — run the WebWin frontend
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Required secrets: `MONGODB_URI`, `GOOGLE_PLACES_API_KEY`
+- Optional login secrets: `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `SALES_EMAIL`, `SALES_PASSWORD`
+- See `SETUP.md` for MongoDB Atlas, Google Places, and demo login instructions.
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
 - API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
+- DB: MongoDB + Mongoose
+- Validation: Zod
 - API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Build: esbuild (ESM bundle)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/api-server/src/routes/` — API endpoints
+- `artifacts/api-server/src/services/` — authentication, MongoDB, Google Places, and lead/search logic
+- `artifacts/api-server/src/models/` — Mongoose schemas
+- `artifacts/webwin/src/` — React dashboard and login
+- `lib/api-spec/openapi.yaml` — API contract source of truth
+- `SETUP.md` — external service connection instructions
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- MongoDB is the application data store; the workspace PostgreSQL scaffold is not used for WebWin data.
+- Google Places credentials are used only by the API server, never by browser code.
+- A missing Google Places website field is labeled “Website not listed”; it is not proof a business has no website.
+- Demo credentials are available only outside production.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+V1 supports admin and sales login, business discovery through Google Places, Place ID deduplication, MongoDB-backed leads and search statistics, and setup guidance.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Keep MongoDB URI and Google Places API key blank until the user adds them through Replit Secrets.
+- Do not add features outside WebWin V1.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Restart the API Server workflow after adding or changing MongoDB or Google Places secrets.
+- Google Places searches can consume API quota; each request is capped at three result pages.
 
 ## Pointers
 
