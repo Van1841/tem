@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{BUSINESS_NAME}} — About</title>
+<meta name="description" content="About {{BUSINESS_NAME}}." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav container" aria-label="Main">
+    <a href="index.html" class="brand"><span>{{BUSINESS_NAME}}</span></a>
+    <ul class="nav-links" id="nav-links"><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html" aria-current="page">About</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <a href="contact.html" class="btn btn-primary nav-cta">Appointments</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main>
+
+<section class="sub-hero" style="--bg:url('https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=1600&q=80')"><div class="container"><span class="tag">{{BUSINESS_CATEGORY}}</span><h1>About the practice</h1><p>Built on trust, clarity and continuity of care.</p></div></section>
+<section class="section"><div class="container two-col rev">
+  <div class="feature-img"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=80&h=1000" alt="Doctor with a stethoscope and folded arms" loading="lazy"></div>
+  <div><span class="tag dark">Our story</span><h2>A practice designed around patients</h2><p class="muted">{{BUSINESS_NAME}} combines modern practice with the attentiveness of a neighbourhood clinic. We invest in clear communication, dependable follow-up and a welcoming environment.</p><p class="muted">Outcomes vary between individuals, so we focus on honest advice and shared decisions.</p></div>
+</div></section>
+<section class="section soft"><div class="container"><h2 class="center-t">Principles</h2>
+<div class="pillars three"><div><h3>Evidence-informed</h3><p>Guidance grounded in accepted clinical practice.</p></div><div><h3>Respectful</h3><p>Privacy and dignity for every patient.</p></div><div><h3>Accessible</h3><p>Plain language, straightforward scheduling.</p></div></div></div></section>
+<section class="section"><div class="container two-col"><div><span class="tag dark">Team</span><h2>Clinicians &amp; support staff</h2><p class="muted">Our clinical and administrative team work together to keep your visit smooth. Contact the clinic to learn about availability.</p></div><div class="feature-img"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=80&h=700" alt="Smiling doctor in a white coat" loading="lazy"></div></div></section>
+<section class="cta"><div class="container cta-in"><div><h2>Take the next step with confidence</h2><p>Reach out and our team will help you arrange an appointment.</p></div><a class="btn btn-primary" href="contact.html">Request appointment</a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container foot">
+    <div><strong class="foot-brand">{{BUSINESS_NAME}}</strong><p data-require="{{BUSINESS_ADDRESS}}">{{BUSINESS_ADDRESS}}</p><p data-require="{{BUSINESS_PHONE}}"><a href="tel:{{BUSINESS_PHONE}}">{{BUSINESS_PHONE}}</a></p></div>
+    <nav class="foot-links" aria-label="Footer"><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav>
+  </div>
+  <p class="container copy">© {{CURRENT_YEAR}} {{BUSINESS_NAME}} · {{BUSINESS_CATEGORY}}. Information on this site is general and is not a substitute for professional medical advice.</p>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>

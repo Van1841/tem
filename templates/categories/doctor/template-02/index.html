@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{BUSINESS_NAME}} — Home</title>
+<meta name="description" content="{{BUSINESS_NAME}} — modern, trusted medical care." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav container" aria-label="Main">
+    <a href="index.html" class="brand"><span>{{BUSINESS_NAME}}</span></a>
+    <ul class="nav-links" id="nav-links"><li><a href="index.html" aria-current="page">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <a href="contact.html" class="btn btn-primary nav-cta">Appointments</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" style="--bg:url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=80')"><div class="container hero-in">
+  <span class="tag">{{BUSINESS_CATEGORY}}</span>
+  <h1>Modern medicine you can <span>trust.</span></h1>
+  <p class="lead">{{BUSINESS_NAME}} brings evidence-informed care, clear communication and a seamless patient experience together.</p>
+  <div class="actions"><a class="btn btn-primary" href="contact.html">Book an appointment</a><a class="btn btn-outline" href="services.html">Explore services</a></div>
+</div></section>
+<section class="stats"><div class="container stats-grid">
+  <div class="stat" data-require="{{BUSINESS_RATING}}"><b>{{BUSINESS_RATING}} <i class="stars" aria-hidden="true">★</i></b><span>Average Google rating</span></div>
+  <div class="stat" data-require="{{BUSINESS_REVIEW_COUNT}}"><b>{{BUSINESS_REVIEW_COUNT}}</b><span>Patient reviews</span></div>
+  <div class="stat"><b>All ages</b><span>Family-focused care</span></div>
+  <div class="stat" data-require="{{BUSINESS_ADDRESS}}"><b class="sm">{{BUSINESS_ADDRESS}}</b><span>Visit the clinic</span></div>
+</div></section>
+<section class="section"><div class="container two-col">
+  <div class="sticky"><span class="tag dark">Services</span><h2>Care that covers what matters</h2><p class="muted">A full range of primary care services, delivered by clinicians who take the time to listen.</p><a class="btn btn-primary" href="services.html">All services</a></div>
+  <ul class="svc-list"><li class="svc-row reveal"><span class="num">01</span><div><h3>General consultations</h3><p>Unhurried appointments to discuss new or ongoing concerns, with clear explanations and next steps.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">02</span><div><h3>Routine check-ups</h3><p>Periodic health reviews covering vitals, history and preventive guidance tailored to your age and lifestyle.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">03</span><div><h3>Chronic condition support</h3><p>Ongoing monitoring and practical planning for long-term conditions, reviewed together over time.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">04</span><div><h3>Preventive care & screening</h3><p>Vaccination advice, screening referrals and lifestyle guidance to help you stay well.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">05</span><div><h3>Family & child health</h3><p>Care for every age group, from growing children to grandparents, under one roof.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">06</span><div><h3>Referrals & coordination</h3><p>When you need a specialist or tests, we help arrange them and keep your records joined up.</p></div><span class="arrow" aria-hidden="true">→</span></li></ul>
+</div></section>
+<section class="section dark"><div class="container feature">
+  <div class="feature-img"><img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=1000&q=80&h=800" alt="Two clinicians reviewing results on a screen" loading="lazy"></div>
+  <div><span class="tag">Why patients choose us</span><h2>Technology-assisted, human-led</h2>
+  <div class="pillars"><div><h3>Clarity</h3><p>Results and options explained in plain language.</p></div><div><h3>Coordination</h3><p>Referrals and records kept joined up.</p></div><div><h3>Convenience</h3><p>Straightforward booking by phone.</p></div></div></div>
+</div></section>
+<section class="cta"><div class="container cta-in"><div><h2>Take the next step with confidence</h2><p>Reach out and our team will help you arrange an appointment.</p></div><a class="btn btn-primary" href="contact.html">Request appointment</a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container foot">
+    <div><strong class="foot-brand">{{BUSINESS_NAME}}</strong><p data-require="{{BUSINESS_ADDRESS}}">{{BUSINESS_ADDRESS}}</p><p data-require="{{BUSINESS_PHONE}}"><a href="tel:{{BUSINESS_PHONE}}">{{BUSINESS_PHONE}}</a></p></div>
+    <nav class="foot-links" aria-label="Footer"><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav>
+  </div>
+  <p class="container copy">© {{CURRENT_YEAR}} {{BUSINESS_NAME}} · {{BUSINESS_CATEGORY}}. Information on this site is general and is not a substitute for professional medical advice.</p>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>

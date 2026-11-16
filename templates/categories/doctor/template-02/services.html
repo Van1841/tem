@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{BUSINESS_NAME}} — Services</title>
+<meta name="description" content="Services offered at {{BUSINESS_NAME}}." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav container" aria-label="Main">
+    <a href="index.html" class="brand"><span>{{BUSINESS_NAME}}</span></a>
+    <ul class="nav-links" id="nav-links"><li><a href="index.html">Home</a></li><li><a href="services.html" aria-current="page">Services</a></li><li><a href="about.html">About</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <a href="contact.html" class="btn btn-primary nav-cta">Appointments</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main>
+
+<section class="sub-hero" style="--bg:url('https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?auto=format&fit=crop&w=1600&q=80')"><div class="container"><span class="tag">{{BUSINESS_CATEGORY}}</span><h1>Services</h1><p>Primary care and preventive health, organised around you.</p></div></section>
+<section class="section"><div class="container"><ul class="svc-list wide"><li class="svc-row reveal"><span class="num">01</span><div><h3>General consultations</h3><p>Unhurried appointments to discuss new or ongoing concerns, with clear explanations and next steps.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">02</span><div><h3>Routine check-ups</h3><p>Periodic health reviews covering vitals, history and preventive guidance tailored to your age and lifestyle.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">03</span><div><h3>Chronic condition support</h3><p>Ongoing monitoring and practical planning for long-term conditions, reviewed together over time.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">04</span><div><h3>Preventive care & screening</h3><p>Vaccination advice, screening referrals and lifestyle guidance to help you stay well.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">05</span><div><h3>Family & child health</h3><p>Care for every age group, from growing children to grandparents, under one roof.</p></div><span class="arrow" aria-hidden="true">→</span></li><li class="svc-row reveal"><span class="num">06</span><div><h3>Referrals & coordination</h3><p>When you need a specialist or tests, we help arrange them and keep your records joined up.</p></div><span class="arrow" aria-hidden="true">→</span></li></ul></div></section>
+<section class="section soft"><div class="container two-col">
+  <div><span class="tag dark">Process</span><h2>How a visit works</h2></div>
+  <ol class="steps"><li><b>Reach out</b><span>Call or send a request.</span></li><li><b>Consult</b><span>Discuss your history and concerns.</span></li><li><b>Plan</b><span>Agree on next steps together.</span></li><li><b>Follow up</b><span>Review progress as needed.</span></li></ol>
+</div></section>
+<section class="section"><div class="container narrow"><h2>Frequently asked</h2><div class="faq-item"><h3><button aria-expanded="false">Do I need an appointment?</button></h3><p hidden>Appointments are recommended so we can give you the time you need. Call the clinic to check availability.</p></div><div class="faq-item"><h3><button aria-expanded="false">What should I bring?</button></h3><p hidden>Bring any previous reports, a list of current medicines and any questions you would like to discuss.</p></div><div class="faq-item"><h3><button aria-expanded="false">Is this a replacement for emergency care?</button></h3><p hidden>No. If you believe you are having a medical emergency, contact your local emergency services immediately.</p></div><div class="faq-item"><h3><button aria-expanded="false">Can I get a second opinion?</button></h3><p hidden>Yes. We welcome questions and are happy to share records so you can consult another professional.</p></div></div></section>
+<section class="cta"><div class="container cta-in"><div><h2>Take the next step with confidence</h2><p>Reach out and our team will help you arrange an appointment.</p></div><a class="btn btn-primary" href="contact.html">Request appointment</a></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container foot">
+    <div><strong class="foot-brand">{{BUSINESS_NAME}}</strong><p data-require="{{BUSINESS_ADDRESS}}">{{BUSINESS_ADDRESS}}</p><p data-require="{{BUSINESS_PHONE}}"><a href="tel:{{BUSINESS_PHONE}}">{{BUSINESS_PHONE}}</a></p></div>
+    <nav class="foot-links" aria-label="Footer"><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav>
+  </div>
+  <p class="container copy">© {{CURRENT_YEAR}} {{BUSINESS_NAME}} · {{BUSINESS_CATEGORY}}. Information on this site is general and is not a substitute for professional medical advice.</p>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>

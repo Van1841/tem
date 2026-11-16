@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{BUSINESS_NAME}} — Contact</title>
+<meta name="description" content="Contact {{BUSINESS_NAME}}." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav container" aria-label="Main">
+    <a href="index.html" class="brand"><span>{{BUSINESS_NAME}}</span></a>
+    <ul class="nav-links" id="nav-links"><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html" aria-current="page">Contact</a></li></ul>
+    <a href="contact.html" class="btn btn-primary nav-cta">Appointments</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main>
+
+<section class="sub-hero" style="--bg:url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80')"><div class="container"><span class="tag">{{BUSINESS_CATEGORY}}</span><h1>Contact</h1><p>Arrange an appointment or ask us a question.</p></div></section>
+<section class="section"><div class="container"><div class="contact-grid">
+  <div class="contact-info">
+    <h2>Clinic details</h2>
+    <ul class="info-list">
+      <li data-require="{{BUSINESS_ADDRESS}}"><strong>Address</strong><span>{{BUSINESS_ADDRESS}}</span></li>
+      <li data-require="{{BUSINESS_PHONE}}"><strong>Phone</strong><a href="tel:{{BUSINESS_PHONE}}">{{BUSINESS_PHONE}}</a></li>
+      <li><strong>Hours</strong><span>Please call to confirm current opening hours.</span></li>
+    </ul>
+    <a class="btn btn-primary" href="{{BUSINESS_MAPS_URL}}" target="_blank" rel="noopener" data-require="{{BUSINESS_MAPS_URL}}">Open in Google Maps</a>
+    <p class="fine">In an emergency, contact your local emergency services rather than using this form.</p>
+  </div>
+  <form class="contact-form" aria-label="Appointment request">
+    <h2>Request an appointment</h2>
+    <label>Your name<input type="text" name="name" required autocomplete="name"></label>
+    <label>Phone<input type="tel" name="phone" required autocomplete="tel"></label>
+    <label>Preferred time<input type="text" name="time" placeholder="e.g. weekday mornings"></label>
+    <label>Reason for visit<textarea name="reason" rows="4" placeholder="Briefly describe what you'd like to discuss"></textarea></label>
+    <button class="btn btn-primary" type="submit">Send request</button>
+    <p class="form-note" role="status"></p>
+  </form>
+</div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container foot">
+    <div><strong class="foot-brand">{{BUSINESS_NAME}}</strong><p data-require="{{BUSINESS_ADDRESS}}">{{BUSINESS_ADDRESS}}</p><p data-require="{{BUSINESS_PHONE}}"><a href="tel:{{BUSINESS_PHONE}}">{{BUSINESS_PHONE}}</a></p></div>
+    <nav class="foot-links" aria-label="Footer"><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></nav>
+  </div>
+  <p class="container copy">© {{CURRENT_YEAR}} {{BUSINESS_NAME}} · {{BUSINESS_CATEGORY}}. Information on this site is general and is not a substitute for professional medical advice.</p>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>
